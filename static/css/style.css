@@ -2,6 +2,29 @@
     margin: 0;
     padding: 0;
 }
+/* --- menu --- */
 .menu{
     background-color: black;
+    display: flex
+}
+.menu li{
+    list-style: none;
+    padding: 10px;
+}
+.menu a{
+    color: white;
+    text-decoration: none;
+    padding: 5px 15px;
+}
+.menu a:hover{
+    background-color: rgb(100, 100, 100);
+}
+
+/* --- logo ---*/
+.logo{
+    height: 650px;
+    background-image: url('../images/aleksandr.jpg');
+    background-size: cover;
+    text-align: center;
+    color: aqua;
 }
