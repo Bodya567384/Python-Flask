@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <section class="logo_articles">
+        <h1>Discover <br> something new</h1>
+    </section>
+
+    <section>
+        <h2>Open new City</h2>
+        {% for article in articles %}
+            <h3>
+                <a href="/details">{{ article }}</a>
+            </h3>
+        {% endfor %}
+    </section>
+
+{% endblock content %}
