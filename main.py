@@ -1,6 +1,31 @@
 from flask import Flask, render_template
+from flask_sqlalchemy import SQLAlchemy
+import os
 
 app = Flask(__name__)
+basedir = os.path.abspath(os.path.dirname(__file__))
+
+# 1. Налаштування
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# 2. Запуск бази даних
+db = SQLAlchemy(app)
+
+
+# 3. Створення таблиці
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String(150), nullable=False)
+    password = db.Column(db.String(25), nullable=False)
+
+    def __repr__(self):
+        return f'<User {self.username}>'
+
+
+with app.app_context():
+    db.create_all()
 
 
 @app.route('/')
