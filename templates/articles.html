@@ -1,17 +1,27 @@
 {% extends "layout.html" %}
 
-{% block content %}
+{% block main %}
     <section class="logo_articles">
         <h1>Discover <br> something new</h1>
     </section>
 
-    <section>
+    <section class="details">
         <h2>Open new City</h2>
         {% for article in articles %}
-            <h3>
-                <a href="/details">{{ article }}</a>
-            </h3>
+            <div>
+                <div class="post_image">
+                    <img src="{{ article.post_image }}" alt="">
+                </div>
+                <div class="articles_text">
+                    <h3>{{ article.post_name }}</h3>
+                    <p>{{ article.continent }}</p>
+                    <p>{{ article.post_text }}</p>
+                </div>
+                <div>
+                    <a href="/details/{{ article.id }}">More details</a>
+                </div>
+            </div>
         {% endfor %}
     </section>
 
-{% endblock content %}
+{% endblock main %}

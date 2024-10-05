@@ -2,7 +2,7 @@ from crypt import methods
 from datetime import datetime
 from email.policy import default
 
-from flask import Flask
+from flask import Flask, message_flashed
 from flask import request
 from flask import render_template
 from flask_sqlalchemy import SQLAlchemy
@@ -41,24 +41,43 @@ class Posts(db.Model):
     continent = db.Column(db.String(255), nullable=False)
     created_on = db.Column(db.Date(), default=datetime.utcnow)
 
-with app.app_context():
-    db.create_all()
+
+
+#with app.app_context():
+#    db.create_all()
 
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/add_post')
+@app.route('/add_post', methods=['GET'])
 def add_post():
 
-    
+
+    return render_template('add_post.html')
+
+
+@app.route('/add_post', methods=['POST'])
+def add_post_form():
+    post_name = request.form['text']
+    post_text = request.form['text']
+    post_image = request.form['URL']
+    continent = request.form['continent']
+
+    row = Posts(post_name=post_name,
+                post_text=post_text,
+                post_image=post_image,
+                continent=continent)
+    db.session.add(row)
+    db.session.commit()
 
     return render_template('add_post.html')
 
 
 @app.route('/login')
 def login():
+    message = 'Enter you login and password'
     return render_template('login.html')
 
 
@@ -87,10 +106,23 @@ def add_user():
 
 @app.route('/articles')
 def articles():
-    new_articles = ['How to avoid expensive travel mistakes', 'Top 5 places to experience supernatural forces',
-                    'Three wonderfully bizarre Mexican festivals', 'The 20 greenest destinations on Earth',
-                    'How to survive on a desert island']
-    return render_template('articles.html', articles=new_articles)
+    articles = Posts.query.all()
+
+    return render_template('articles.html',
+                           articles=articles)
+
+@app.route('/delete_post', methods=["GET", 'POST'])
+def delete_post():
+    if request.method == 'POST':
+        id_list = request.form.getlist('id')
+        for id in id_list:
+            row = Posts.query.filter_by(id=id).first()
+            db.session.delete()
+
+        db.session.commit()
+
+    articles = Posts.query.all()
+    render_template('delete_post.html', articles=articles)
 
 
 @app.route('/details')

@@ -1,10 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <h1>Posts</h1>
-</body>
-</html>
+{% extends 'layout.html' %}
+
+{% block main %}
+
+<form class="add-article" name="add_article" method="post" action="/add_post">
+    <h2>Add a new Article</h2>
+
+    <p>Article title</p>
+    <input name="title" type="text" required>
+
+    <p>Article text</p>
+    <textarea name="text" required rows="15" cols="100"></textarea>
+
+    <p>Image URL</p>
+    <input name="URL" type="url" required >
+
+    <p>Continent</p>
+    <select style="font-size: 20px" name="continent" required>
+        <option>Africa</option>
+        <option>Asia</option>
+        <option>Europe</option>
+        <option>North America</option>
+        <option>South America</option>
+        <option>Antarctica</option>
+        <option>Australia</option>
+    </select><br>
+
+    <button name="submit" type="submit">ADD ARTICLE</button>
+    <button name="reset" type="reset">RESET</button>
+</form>
+
+{% endblock main %}
