@@ -21,8 +21,16 @@
                 <li><a href="/articles">Articles</a></li>
                 <li><a href="/about">About</a></li>
 
+                {% if username: %}
+                <li><a href="/add_post">Add Post</a></li>
+                <li><a href="/delete_post">Delete Post</a></li>
+                <li><a href="/add_user">Add User</a></li>
+
+                <li><a href="/logout">Log out</a></li>
+                {% else %}
                 <!-- login -->
                 <li><a href="/login">Login</a></li>
+                {% endif %}
             </ul>
         </nav>
         <div class="welcome_user">
